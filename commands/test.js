@@ -3,12 +3,12 @@ module.exports = {
     description: 'creates a new table, inserts something, queries it, then deletes the table',
     execute(msg, args, admins, dbobj) {
         var isAdmin = false;
-        for(var index in admins){
-            if(msg.member.user.tag == admins[index]){
+        admins.forEach((item)=>{
+            if(msg.member.id == item){
                 isAdmin = true;
-                break;
+                return;
             }
-        }
+        });
         if(!isAdmin){
             msg.channel.send('You are not admin!!!');
             return;

@@ -7,14 +7,14 @@ module.exports = {
         }
         var name = args.join("").replace(/\s+/g, "").toLowerCase();
         var db = dbobj.database;
-        db.all(`SELECT names FROM NAMES`, [], function(err, rows){
-            var nameExists = false;
+        db.all(`SELECT id, names FROM NAMES ORDER BY id ASC`, [], function(err, rows){
+            var nameVerified = false;
             rows.forEach((item) => {
-                if (item['names'] === name){
-                    nameExists = true;
+                if (item['names'] === name && item['id'] === msg.member.id){
+                    nameVerified = true;
                 }
             });
-            if(nameExists){
+            if(nameVerified){
                 db.run(`UPDATE LOG SET `+name+` = 1 WHERE date = (date('now'))`, [], function(err) {
                     if (err) {
                       return console.log(err.message);

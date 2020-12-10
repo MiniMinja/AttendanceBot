@@ -3,12 +3,12 @@ module.exports = {
     description: 'allows admins to delete data that may have been inserted falsely',
     execute(msg, args, admins, dbobj) {
         var isAdmin = false;
-        for(var index in admins){
-            if(msg.member.user.tag == admins[index]){
+        admins.forEach((item)=>{
+            if(msg.member.id == item){
                 isAdmin = true;
-                break;
+                return;
             }
-        }
+        });
         if(!isAdmin){
             msg.channel.send('You are not admin!!!');
             return;

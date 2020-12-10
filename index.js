@@ -5,7 +5,8 @@ attobj.database.run(`CREATE TABLE IF NOT EXISTS LOG(
     date text UNIQUE
 )`);
 attobj.database.run(`CREATE TABLE IF NOT EXISTS NAMES(
-    names text UNIQUE
+    id text PRIMARY KEY, 
+    names text
 )`);
 
 const fs = require('fs');
