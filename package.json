@@ -1,7 +1,7 @@
 {
   "name": "attendancebot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Attendance Checker Trial 1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +13,13 @@
     "dotenv": "^8.2.0",
     "sqlite": "^4.0.15",
     "sqlite3": "^5.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiniMinja/AttendanceBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MiniMinja/AttendanceBot/issues"
+  },
+  "homepage": "https://github.com/MiniMinja/AttendanceBot#readme"
 }
