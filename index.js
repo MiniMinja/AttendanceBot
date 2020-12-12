@@ -5,13 +5,56 @@ attobj.database.run(`CREATE TABLE IF NOT EXISTS LOG(
     date text UNIQUE
 )`);
 attobj.database.run(`CREATE TABLE IF NOT EXISTS NAMES(
-    names text UNIQUE
+    id text PRIMARY KEY, 
+    names text
 )`);
 
 const fs = require('fs');
 var data = fs.readFileSync('adminprivs.txt');
 let admins = data.toString().split(/\r?\n/);
 console.log("admins: "+admins);
+
+var bdata = fs.readFileSync('blacklist.txt');
+let blacklisted = bdata.toString().split(/\r?\n/);
+console.log("blacklist: ");
+blacklisted.forEach((item) => {
+    console.log(item);
+});
+
+let permissions = {
+    admins: admins,
+    blist: blacklisted,
+    isAdmin: (user) => {
+        var isAdmin = false;
+        admins.forEach((item)=>{
+            if(user == item){
+                isAdmin = true;
+                return;
+            }
+        });
+        return isAdmin;
+    },
+    isAllowed: (user) => {
+        var isBlacklisted = false;
+        blacklisted.forEach((item)=>{
+            if(user == item){
+                isBlacklisted = true;
+                return;
+            }
+        });
+        return !isBlacklisted;
+    },
+    blacklist: (toBeBlacklisted) =>{
+        fs.appendFileSync("blacklist.txt", toBeBlacklisted+'\n', (err) => {
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log('Appended '+ toBeBlacklisted);
+            return;
+        });
+    }
+}
 
 const Discord = require('discord.js');
 const bot = new Discord.Client();
@@ -39,7 +82,7 @@ bot.on('message', msg => {
     //console.info(`Got Message: ${command}`);
 
     try {
-        bot.commands.get(command).execute(msg, args, admins, attobj);
+        bot.commands.get(command).execute(msg, args, permissions, attobj);
     } catch (error) {
         console.error(error);
         msg.reply('there was an error trying to execute that command!');
