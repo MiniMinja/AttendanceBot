@@ -5,5 +5,6 @@ module.exports = {
     Test: require('./test'),
     Mark: require('./mark'),
     Delete: require('./delete'),
-    Deleteuser: require('./deleteuser')
+    Deleteuser: require('./deleteuser'),
+    Blacklist: require('./blacklist')
 }

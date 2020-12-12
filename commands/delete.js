@@ -1,16 +1,9 @@
 module.exports = {
     name: 'delete',
     description: 'allows admins to delete data that may have been inserted falsely',
-    execute(msg, args, admins, dbobj) {
-        var isAdmin = false;
-        admins.forEach((item)=>{
-            if(msg.member.id == item){
-                isAdmin = true;
-                return;
-            }
-        });
-        if(!isAdmin){
-            msg.channel.send('You are not admin!!!');
+    execute(msg, args, permissions, dbobj) {
+        if(!permissions.isAdmin(msg.member.id)) {
+            console.log('You are not admin!');
             return;
         }
         if(args.length == 0){

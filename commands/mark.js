@@ -1,7 +1,11 @@
 module.exports = {
     name: 'mark',
     description: 'Records the date the student marked',
-    execute(msg, args, admins, dbobj) {
+    execute(msg, args, permissions, dbobj) {
+        if(!permissions.isAllowed(msg.member.id)){
+            msg.channel.send('You are prohibited from using this command');
+            return;
+        }
         if(args.length == 0){
             return;
         }

@@ -1,9 +1,11 @@
 module.exports = {
     name: 'login',
     description: 'Creates a table which records the data of a new student',
-    execute(msg, args, admins, dbobj) {
-        //when we create a database for a student, that student can login as multiple names (hence multiple tables)
-        //find a way to constrain such that unique tables for each student (or some solution of the sort)
+    execute(msg, args, permissions, dbobj) {
+        if(!permissions.isAllowed(msg.member.id)){
+            msg.channel.send('You are prohibited from using this command');
+            return;
+        }
         if(args.length == 0){
             return;
         }
