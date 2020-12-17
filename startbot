@@ -1,0 +1,2 @@
+cd ~/Documents/AttendanceBot
+node index.js

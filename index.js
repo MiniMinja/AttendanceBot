@@ -87,4 +87,5 @@ bot.on('message', msg => {
         console.error(error);
         msg.reply('there was an error trying to execute that command!');
     }
+    msg.channel.send('Bot is ONLINE!!!');
 });
